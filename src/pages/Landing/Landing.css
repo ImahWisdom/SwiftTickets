@@ -1,0 +1,186 @@
+:root {
+    --primary: #1A73E8;
+    --primary-dark: #0F59C9;
+    --bg-light: #F0F4FF;
+    --card-bg: #fff;
+    --text: #1F2937;
+    --muted: #4B5563;
+    --max-w: 1440px;
+    --radius: 12px;
+  }
+  
+  /* MAIN */
+  .landing {
+    padding-top: 70px;
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--text);
+  }
+  
+  /* HERO */
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, #1A73E8, #4dabf7);
+    color: #fff;
+    text-align: center;
+    padding: 120px 20px 100px;
+    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 16px;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 32px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-buttons .btn-primary,
+  .hero-buttons .btn-secondary {
+    padding: 14px 32px;
+    font-weight: 600;
+    border-radius: var(--radius);
+    text-decoration: none;
+    margin: 0 8px;
+    transition: 0.3s ease;
+  }
+  
+  .btn-primary {
+    background: #fff;
+    color: var(--primary);
+  }
+  
+  .btn-primary:hover {
+    background: #e6e6e6;
+  }
+  
+  .btn-secondary {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+  }
+  
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.2);
+  }
+  
+  /* BUBBLES ANIMATION */
+  .bubbles span {
+    position: absolute;
+    bottom: -50px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    animation: rise 15s infinite;
+  }
+  
+  .bubble:nth-child(1){ left: 10%; width: 40px; height: 40px; animation-duration:12s; }
+  .bubble:nth-child(2){ left: 20%; width: 20px; height: 20px; animation-duration:8s; }
+  .bubble:nth-child(3){ left: 35%; width: 25px; height: 25px; animation-duration:10s; }
+  .bubble:nth-child(4){ left: 50%; width: 50px; height: 50px; animation-duration:14s; }
+  .bubble:nth-child(5){ left: 65%; width: 15px; height: 15px; animation-duration:7s; }
+  .bubble:nth-child(6){ left: 75%; width: 30px; height: 30px; animation-duration:11s; }
+  .bubble:nth-child(7){ left: 85%; width: 20px; height: 20px; animation-duration:9s; }
+  .bubble:nth-child(8){ left: 95%; width: 25px; height: 25px; animation-duration:13s; }
+  
+  @keyframes rise {
+    0% { transform: translateY(0) scale(1); opacity: 0.4; }
+    50% { opacity: 0.7; }
+    100% { transform: translateY(-800px) scale(1.2); opacity: 0; }
+  }
+  
+  /* WHY US */
+  .why-us {
+    max-width: var(--max-w);
+    margin: 80px auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+  
+  .why-us h2 {
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+  }
+  
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 24px;
+  }
+  
+  .card {
+    background: var(--card-bg);
+    padding: 30px 20px;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 20px rgba(15,23,42,0.08);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(15,23,42,0.15);
+  }
+  
+  .card .icon {
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+  
+  .card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  
+  .card p {
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+  
+  /* CTA */
+  .cta {
+    text-align: center;
+    padding: 80px 20px;
+    background: var(--bg-light);
+  }
+  
+  .cta h2 {
+    font-size: 2.2rem;
+    margin-bottom: 24px;
+  }
+  
+  .cta .btn-primary {
+    padding: 16px 36px;
+    font-size: 1.05rem;
+  }
+  
+  /* FOOTER */
+  .footer {
+    background: #fff;
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  
+  /* RESPONSIVE */
+  @media (max-width:1024px){
+    .cards-grid{
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+    }
+  }
+  
+  @media(max-width:768px){
+    .hero h1{ font-size: 2.2rem; }
+    .hero p{ font-size: 1rem; }
+    .hero-buttons .btn-primary,
+    .hero-buttons .btn-secondary{ display:block; margin:10px auto; width:80%; }
+    .cards-grid{ grid-template-columns: 1fr; grid-template-rows: auto; gap:16px; }
+  }
+  
