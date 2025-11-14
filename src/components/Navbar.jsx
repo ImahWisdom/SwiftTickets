@@ -1,22 +1,29 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
+  // 🔁 Re-run this check whenever the route changes (like after login/signup)
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem("ticketapp_session"));
     if (session && session.username) {
       setIsLoggedIn(true);
       setUsername(session.username);
+    } else {
+      setIsLoggedIn(false);
+      setUsername("");
     }
-  }, []);
+  }, [location.pathname]);
 
   const handleLogout = () => {
     localStorage.removeItem("ticketapp_session");
+    setIsLoggedIn(false);
+    setUsername("");
     window.location.href = "/";
   };
 
