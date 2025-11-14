@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-
 
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -33,8 +34,8 @@ const Signup = () => {
       JSON.stringify({ username, email })
     );
 
-    // Redirect directly to dashboard
-    window.location.href = "/dashboard";
+    // Redirect directly to dashboard using navigate
+    navigate("/dashboard");
   };
 
   return (
@@ -69,7 +70,7 @@ const Signup = () => {
         </form>
 
         <p className="bottom-text">
-          Already have an account? <a href="/auth/login">Login</a>
+          Already have an account? <Link to="/auth/login">Login</Link>
         </p>
       </div>
     </div>
@@ -77,3 +78,4 @@ const Signup = () => {
 };
 
 export default Signup;
+

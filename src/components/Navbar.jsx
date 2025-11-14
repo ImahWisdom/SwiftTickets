@@ -8,7 +8,6 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
-  // 🔁 Re-run this check whenever the route changes (like after login/signup)
   useEffect(() => {
     const session = JSON.parse(localStorage.getItem("ticketapp_session"));
     if (session && session.username) {
@@ -18,6 +17,7 @@ const Navbar = () => {
       setIsLoggedIn(false);
       setUsername("");
     }
+    setMenuOpen(false); // auto-close menu on route change
   }, [location.pathname]);
 
   const handleLogout = () => {
@@ -30,20 +30,20 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="logo">
-        <Link to="/">SwiftTickets</Link>
+        <Link to="/" onClick={() => setMenuOpen(false)}>SwiftTickets</Link>
       </div>
 
       <div className={`nav-links ${menuOpen ? "active" : ""}`}>
         {!isLoggedIn ? (
           <>
-            <Link to="/auth/login">Login</Link>
-            <Link to="/auth/signup">Get Started</Link>
+            <Link to="/auth/login" onClick={() => setMenuOpen(false)}>Login</Link>
+            <Link to="/auth/signup" onClick={() => setMenuOpen(false)}>Get Started</Link>
           </>
         ) : (
           <>
-            <Link to="/dashboard">Dashboard</Link>
-            <Link to="/tickets">Tickets</Link>
-            <button className="logout-btn" onClick={handleLogout}>
+            <Link to="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</Link>
+            <Link to="/tickets" onClick={() => setMenuOpen(false)}>Tickets</Link>
+            <button className="logout-btn" onClick={() => { handleLogout(); setMenuOpen(false); }}>
               Logout
             </button>
           </>
@@ -58,5 +58,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
 

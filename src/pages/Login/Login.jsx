@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -29,7 +31,8 @@ const Login = () => {
 
     localStorage.setItem("ticketapp_session", JSON.stringify(session));
 
-    window.location.href = "/dashboard";
+    // Navigate to dashboard without full reload
+    navigate("/dashboard");
   };
 
   return (
@@ -58,7 +61,7 @@ const Login = () => {
         </form>
 
         <p className="bottom-text">
-          Don't have an account? <a href="/auth/signup">Sign Up</a>
+          Don't have an account? <Link to="/auth/signup">Sign Up</Link>
         </p>
       </div>
     </div>
@@ -66,5 +69,6 @@ const Login = () => {
 };
 
 export default Login;
+
 
 

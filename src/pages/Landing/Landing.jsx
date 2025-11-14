@@ -1,8 +1,11 @@
 import React from "react";
 import "./Landing.css";
+import { Link, useNavigate } from "react-router-dom";
 import { FaTicketAlt, FaShieldAlt, FaClock, FaHeadset, FaChartBar, FaCheckCircle } from "react-icons/fa";
 
 const Landing = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <main className="landing">
@@ -13,8 +16,13 @@ const Landing = () => {
             <h1>SwiftTickets</h1>
             <p>Manage, track, and resolve tickets seamlessly with SwiftTickets.</p>
             <div className="hero-buttons">
-              <a href="/auth/signup" className="btn-primary">Start Free Trial</a>
-              <a href="/auth/login" className="btn-secondary">Sign In</a>
+              {/* Use navigate for buttons */}
+              <button className="btn-primary" onClick={() => navigate("/auth/signup")}>
+                Start Free Trial
+              </button>
+              <button className="btn-secondary" onClick={() => navigate("/auth/login")}>
+                Sign In
+              </button>
             </div>
           </div>
 
@@ -40,7 +48,9 @@ const Landing = () => {
         {/* READY TO GET STARTED */}
         <section className="cta">
           <h2>Ready to get started?</h2>
-          <a href="/auth/signup" className="btn-primary">Get Started Now</a>
+          <button className="btn-primary" onClick={() => navigate("/auth/signup")}>
+            Get Started Now
+          </button>
         </section>
 
         {/* FOOTER */}
@@ -54,4 +64,3 @@ const Landing = () => {
 };
 
 export default Landing;
-
