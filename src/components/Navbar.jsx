@@ -17,7 +17,7 @@ const Navbar = () => {
       setIsLoggedIn(false);
       setUsername("");
     }
-    setMenuOpen(false); // auto-close menu on route change
+    setMenuOpen(false); 
   }, [location.pathname]);
 
   const handleLogout = () => {

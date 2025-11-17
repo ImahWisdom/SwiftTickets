@@ -1,8 +1,8 @@
 .navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 12px 15px;
+  align-items: center; 
+  padding: 12px 20px;
   background: #007bff;
   color: white;
   position: fixed;
@@ -10,7 +10,7 @@
   left: 0;
   width: 100%;
   z-index: 999;
-  box-sizing: border-box; /* important to include padding in width */
+  box-sizing: border-box;
 }
 
 .navbar .logo a {
@@ -23,7 +23,8 @@
 .nav-links {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap; /* allow items to wrap if needed */
+  flex-wrap: wrap;
+  align-items: center; 
 }
 
 .nav-links a,
@@ -31,60 +32,73 @@
   color: white;
   text-decoration: none;
   font-weight: 500;
-  padding: 6px 10px;
+  padding: 5px 10px; 
   border-radius: 6px;
-  white-space: nowrap; /* prevent breaking text */
-  flex-shrink: 0; /* prevent shrinking too much */
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center; 
 }
 
 .logout-btn {
   border: 1px solid white;
   background: none;
   cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.logout-btn:hover {
+  background: white;
+  color: #007bff;
 }
 
 .hamburger {
   display: none;
   background: none;
   border: none;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: white;
   cursor: pointer;
+  z-index: 1000;
 }
 
-/* Mobile */
+/* Mobile styles */
 @media (max-width: 768px) {
   .nav-links {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 60px;
     left: 0;
+    right: 0;
     background: #007bff;
     flex-direction: column;
     width: 100%;
-    display: none;
-    box-sizing: border-box; /* ensures width includes padding */
-    z-index: 998;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
   }
 
   .nav-links.active {
-    display: flex;
+    max-height: 300px; 
+  }
+
+  .nav-links a,
+  .logout-btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.2);
   }
 
   .hamburger {
     display: block;
   }
-
-  .nav-links a,
-  .logout-btn {
-    padding: 10px 15px;
-    font-size: 1rem;
-  }
 }
 
-/* Main content padding so it doesn't hide under navbar */
+/* Push page content down so navbar doesn't overlap */
 body, .dashboard-container, .auth-page, .other-page-container {
   padding-top: 60px;
 }
+
+
 
 
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Navbar from "../../components/Navbar";
+
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -28,13 +28,13 @@ const Signup = () => {
     users[email] = { username, email, password };
     localStorage.setItem("ticketapp_users", JSON.stringify(users));
 
-    // Save logged-in user info separately for session
+    // Save session using SAME KEY as Login.jsx
     localStorage.setItem(
-      "ticketapp_loggedin_user",
+      "ticketapp_session",
       JSON.stringify({ username, email })
     );
 
-    // Redirect directly to dashboard using navigate
+    // Redirect to dashboard
     navigate("/dashboard");
   };
 
@@ -78,4 +78,5 @@ const Signup = () => {
 };
 
 export default Signup;
+
 
