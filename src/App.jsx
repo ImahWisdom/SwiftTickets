@@ -12,7 +12,7 @@ import ScrollToTop from "./components/ScrollToTop";
 function App() {
   return (
     <>
-    <ScrollToTop />
+      <ScrollToTop />
       <Navbar />
       <Routes>
         {/* Public Routes */}
@@ -43,5 +43,7 @@ function App() {
 }
 
 export default App;
+
+
 
 
