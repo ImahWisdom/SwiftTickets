@@ -31,7 +31,8 @@ function Tickets() {
     } catch (err) {
       allTickets = [];
     }
-    setTickets(allTickets.filter((t) => t.username === username));
+    // Show only non-deleted tickets on this page
+    setTickets(allTickets.filter((t) => t.username === username && !t.deleted));
   }, [username]);
 
   const saveTickets = (updatedTickets) => {
@@ -48,16 +49,14 @@ function Tickets() {
       "tickets",
       JSON.stringify([...otherUsers, ...updatedTickets])
     );
-    setTickets(updatedTickets);
+    setTickets(updatedTickets.filter((t) => !t.deleted));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editingId) {
       const updatedTickets = tickets.map((t) =>
-        t.id === editingId
-          ? { ...formData, id: editingId, username, date: t.date }
-          : t
+        t.id === editingId ? { ...formData, id: editingId, username, date: t.date, deleted: t.deleted || false } : t
       );
       saveTickets(updatedTickets);
       setEditingId(null);
@@ -67,6 +66,7 @@ function Tickets() {
         id: Date.now(),
         username,
         date: new Date().toLocaleDateString(),
+        deleted: false,
       };
       saveTickets([...tickets, newTicket]);
     }
@@ -82,11 +82,7 @@ function Tickets() {
   };
 
   const handleDelete = (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this ticket?"
-    );
-    if (!confirmDelete) return;
-
+    if (!window.confirm("Are you sure you want to delete this ticket?")) return;
     const updatedTickets = tickets.map((t) =>
       t.id === id ? { ...t, deleted: true } : t
     );
@@ -94,8 +90,8 @@ function Tickets() {
   };
 
   const filteredTickets = filterStatus
-    ? tickets.filter((t) => t.status === filterStatus && !t.deleted)
-    : tickets.filter((t) => !t.deleted);
+    ? tickets.filter((t) => t.status === filterStatus)
+    : tickets;
 
   return (
     <>
@@ -105,10 +101,7 @@ function Tickets() {
           <button className="create-btn" onClick={() => setModalOpen(true)}>
             {editingId ? "Edit Ticket" : "Create Ticket"}
           </button>
-          <button
-            className="go-dashboard-btn"
-            onClick={() => navigate("/dashboard")}
-          >
+          <button className="go-dashboard-btn" onClick={() => navigate("/dashboard")}>
             Go to Dashboard
           </button>
         </div>
@@ -150,26 +143,20 @@ function Tickets() {
                   type="text"
                   placeholder="Title"
                   value={formData.title}
-                  onChange={(e) =>
-                    setFormData({ ...formData, title: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   maxLength={50}
                   required
                 />
                 <textarea
                   placeholder="Description"
                   value={formData.description}
-                  onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   maxLength={200}
                   required
                 />
                 <select
                   value={formData.status}
-                  onChange={(e) =>
-                    setFormData({ ...formData, status: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                   required
                 >
                   <option value="open">Open</option>
@@ -178,9 +165,7 @@ function Tickets() {
                 </select>
                 <select
                   value={formData.priority}
-                  onChange={(e) =>
-                    setFormData({ ...formData, priority: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
                   required
                 >
                   <option value="Low">Low</option>
@@ -189,13 +174,7 @@ function Tickets() {
                 </select>
                 <div className="modal-actions">
                   <button type="submit" className="save-btn">Save</button>
-                  <button
-                    type="button"
-                    className="cancel-btn"
-                    onClick={() => setModalOpen(false)}
-                  >
-                    Cancel
-                  </button>
+                  <button type="button" className="cancel-btn" onClick={() => setModalOpen(false)}>Cancel</button>
                 </div>
               </form>
             </div>
@@ -211,6 +190,7 @@ function Tickets() {
 }
 
 export default Tickets;
+
 
 
 
