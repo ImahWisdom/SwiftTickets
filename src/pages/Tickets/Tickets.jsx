@@ -55,7 +55,9 @@ function Tickets() {
     e.preventDefault();
     if (editingId) {
       const updatedTickets = tickets.map((t) =>
-        t.id === editingId ? { ...formData, id: editingId, username, date: t.date } : t
+        t.id === editingId
+          ? { ...formData, id: editingId, username, date: t.date }
+          : t
       );
       saveTickets(updatedTickets);
       setEditingId(null);
@@ -80,13 +82,20 @@ function Tickets() {
   };
 
   const handleDelete = (id) => {
-    const updatedTickets = tickets.filter((t) => t.id !== id);
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this ticket?"
+    );
+    if (!confirmDelete) return;
+
+    const updatedTickets = tickets.map((t) =>
+      t.id === id ? { ...t, deleted: true } : t
+    );
     saveTickets(updatedTickets);
   };
 
   const filteredTickets = filterStatus
-    ? tickets.filter((t) => t.status === filterStatus)
-    : tickets;
+    ? tickets.filter((t) => t.status === filterStatus && !t.deleted)
+    : tickets.filter((t) => !t.deleted);
 
   return (
     <>
@@ -202,6 +211,8 @@ function Tickets() {
 }
 
 export default Tickets;
+
+
 
 
 

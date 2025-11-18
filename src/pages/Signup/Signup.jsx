@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -14,6 +13,12 @@ const Signup = () => {
 
     if (!username || !email || !password) {
       setError("All fields are required.");
+      return;
+    }
+
+    // 🔐 Password minimum length validation
+    if (password.length < 5) {
+      setError("Password must be at least 5 characters long.");
       return;
     }
 
@@ -78,5 +83,6 @@ const Signup = () => {
 };
 
 export default Signup;
+
 
 
